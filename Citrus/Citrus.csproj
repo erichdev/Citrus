@@ -265,6 +265,7 @@
     <Content Include="Content\app.min.2.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom.css" />
     <Content Include="Content\Project\animate.css" />
     <Content Include="Content\Project\animations.css" />
     <Content Include="Content\Project\custom.css" />
@@ -482,6 +483,7 @@
     <Content Include="media\gallery\thumbs\7.jpg" />
     <Content Include="media\gallery\thumbs\8.jpg" />
     <Content Include="media\gallery\thumbs\9.jpg" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="bin\Citrus.dll.config" />
@@ -618,8 +620,14 @@
     <Content Include="less\inc\widgets.less" />
     <Content Include="less\inc\wizard.less" />
     <Content Include="media\mediaelement.srt" />
+    <Content Include="fonts\Roboto-Bold-webfont.woff" />
+    <Content Include="fonts\Roboto-Light-webfont.woff" />
+    <Content Include="fonts\Roboto-Medium-webfont.woff" />
+    <Content Include="fonts\Roboto-Regular-webfont.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\charts.js" />
+    <Content Include="Scripts\citrus.js" />
+    <Content Include="Scripts\citrus.ng.app.js" />
     <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\flot-charts\bar-chart.js" />
     <Content Include="Scripts\flot-charts\curved-line-chart.js" />
@@ -4430,6 +4438,7 @@
     <Content Include="Views\Shared\Material\_Header.cshtml" />
     <Content Include="Views\Shared\Material\_Footer.cshtml" />
     <Content Include="Views\Home\Demo.cshtml" />
+    <Content Include="Views\Home\Volunteer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
