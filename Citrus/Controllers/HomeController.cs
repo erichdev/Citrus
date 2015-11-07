@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace Citrus.Controllers
 {
-    [RoutePrefix("")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -28,8 +27,7 @@ namespace Citrus.Controllers
             return View();
         }
 
-        [Route("Profile")]
-        public new ActionResult Profile()
+        public ActionResult Demo()
         {
             return View();
         }
