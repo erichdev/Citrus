@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Citrus.Controllers
 {
+    [RoutePrefix("")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -24,6 +25,12 @@ namespace Citrus.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        [Route("Profile")]
+        public new ActionResult Profile()
+        {
             return View();
         }
     }
