@@ -26,7 +26,7 @@ namespace Citrus.Services
 
                    v.Id = reader.GetSafeInt32(startingIndex++);
                    v.Name = reader.GetSafeString(startingIndex++);
-                   v.ZipCode = reader.GetSafeString(startingIndex++);
+                   v.Address = reader.GetSafeString(startingIndex++);
                    v.Email = reader.GetSafeString(startingIndex++);
                    v.Description = reader.GetSafeString(startingIndex++);
 
@@ -54,7 +54,7 @@ namespace Citrus.Services
                    e.Name = reader.GetSafeString(startingIndex++);
                    e.Organization = reader.GetSafeString(startingIndex++);
                    e.Category = reader.GetSafeInt32(startingIndex++);
-                   e.ZipCode = reader.GetSafeString(startingIndex++);
+                   e.Address = reader.GetSafeString(startingIndex++);
                    e.Description = reader.GetSafeString(startingIndex++);
 
                    if (list == null)
@@ -92,7 +92,7 @@ namespace Citrus.Services
                    e.Name = reader.GetSafeString(startingIndex++);
                    e.Organization = reader.GetSafeString(startingIndex++);
                    e.Category = reader.GetSafeInt32(startingIndex++);
-                   e.ZipCode = reader.GetSafeString(startingIndex++);
+                   e.Address = reader.GetSafeString(startingIndex++);
                    e.Description = reader.GetSafeString(startingIndex++);
 
                    if (list == null)

@@ -1,12 +1,13 @@
 ﻿
 @{
     ViewBag.Title = "Volunteer";
+    Layout = "~/Views/Shared/_LayoutMaterial.cshtml";
 }
 
 <section id="main">
 
     <section id="content">
-        <div class="container">
+        <div class="container" data-ng-app="mainController as main">
 
             <div class="block-header">
                 <h1>Erich Volunteer</h1>
@@ -37,7 +38,7 @@
                     <div class="pmo-pic">
                         <div class="p-relative">
                             <a href="">
-                                <img class="img-responsive" src="img/profile-pics/profile-pic-2.jpg" alt="">
+                                <img class="img-responsive" src="~/img/profile-pics/2.jpg" alt="">
                             </a>
 
                             @*<div class="dropdown pmop-message">
@@ -134,3 +135,65 @@
         </div>
     </section>
 </section>
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        citrus.services.factory = function ($baseService) {
+            var aServiceObject = citrus.services;
+            var newService = $baseService.merge(true, {}, aServiceObject, $baseService);
+            return newService;
+        }
+
+        citrus.page.mainControllerFactory = function ($scope, $baseController, $citrusService) {
+            var vm = this;
+
+            $baseController.merge(vm, $baseController);
+
+            vm.$scope = $scope;
+            vm.citrusService = $citrusService;
+            vm.notify = vm.citrusService.getNotifier($scope);
+
+            vm.getVolunteerSuccess = _getVolunteerSuccess;
+            vm.getSubscribedSuccess = _getSubscribedSuccess;
+            vm.getNearbySuccess = _getNearbySuccess;
+            vm.ajaxError = _ajaxError;
+
+            function render() {
+
+                vm.citrusService.getVolunteerById(1, vm.getVolunteerSuccess, vm.ajaxError);
+                vm.citrusService.getSubscribedEvents(1, vm.getSubscribedSuccess, vm.ajaxError);
+                vm.citrusService.getNearbyEvents(1, vm.getNearbySuccess, vm.ajaxError);
+            }
+
+            function _getVolunteerSuccess(data) {
+                console.log(data);
+            }
+
+            function _getSubscribedSuccess(data) {
+                console.log(data);
+            }
+
+            function _getNearbySuccess(data) {
+                console.log(data);
+            }
+
+            function _ajaxError(error) {
+                console.log("ajax error: ", error);
+            }
+        }
+
+        citrus.ng.addService(citrus.ng.app.module
+            , "$citrusService"
+            , ["$baseService"]
+            , citrus.services.factory);
+
+        citrus.ng.addController(citrus.ng.app.module
+            , "mainController"
+            , ['$scope', '$baseController', '$citrusService']
+            , citrus.page.mainControllerFactory);
+
+    </script>    
+    
+}

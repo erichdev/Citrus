@@ -1,6 +1,8 @@
 ﻿citrus.factories = function (apiRoot, ajaxFx) {
 
     thisService = this;
+    thisService.apiRoot = apiRoot;
+    thisService.ajax = ajaxFx;
     thisService.getVolunteerById = _getVolunteerById;
     thisService.getSubscribedEvents = _getSubscribedEvents;
     thisService.getNearbyEvents = _getNearbyEvents;
