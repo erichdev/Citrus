@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Citrus", "Citrus\Citrus.csproj", "{6E30A4B4-1A23-41A0-A1B4-994464430EC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Citrus.Data", "Sabio.Data\Citrus.Data.csproj", "{7BFBD749-B5D2-4E4A-8591-320E8E579BF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Citrus.Data", "Citrus.Data\Citrus.Data.csproj", "{7BFBD749-B5D2-4E4A-8591-320E8E579BF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

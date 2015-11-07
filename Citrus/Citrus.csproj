@@ -179,7 +179,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MainApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -188,7 +187,6 @@
     </Compile>
     <Compile Include="Models\Domain\Event.cs" />
     <Compile Include="Models\Domain\Volunteer.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ItemResponse.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -4450,7 +4448,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Services\" />
     <Folder Include="vendors\bower_components\bower\Packager\" />
   </ItemGroup>
   <ItemGroup>
@@ -4465,7 +4462,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sabio.Data\Citrus.Data.csproj">
+    <ProjectReference Include="..\Citrus.Data\Citrus.Data.csproj">
       <Project>{7bfbd749-b5d2-4e4a-8591-320e8e579bf6}</Project>
       <Name>Citrus.Data</Name>
     </ProjectReference>
