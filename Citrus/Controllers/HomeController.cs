@@ -26,5 +26,10 @@ namespace Citrus.Controllers
 
             return View();
         }
+
+        public ActionResult Demo()
+        {
+            return View();
+        }
     }
 }
