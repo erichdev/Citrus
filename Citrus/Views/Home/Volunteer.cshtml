@@ -7,7 +7,7 @@
 <section id="main">
 
     <section id="content">
-        <div class="container" data-ng-app="mainController as main">
+        <div class="container" data-ng-controller="mainController as main">
 
             <div class="block-header">
                 <h1>Erich Volunteer</h1>
@@ -159,6 +159,8 @@
             vm.getSubscribedSuccess = _getSubscribedSuccess;
             vm.getNearbySuccess = _getNearbySuccess;
             vm.ajaxError = _ajaxError;
+
+            render();
 
             function render() {
 
