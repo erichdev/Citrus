@@ -10,7 +10,9 @@ citrus.ng = {
     , controllerInstances: []
 	, exceptions: {}
 	, examples: {}
-	, defaultDependencies: ["ngAnimate", "ngRoute", "ngSanitize", "ngCookies", "ui.bootstrap", ]
+	//, defaultDependencies: ["ngAnimate", "ngRoute", "ngSanitize", "ngCookies", "ui.bootstrap", ]
+    	, defaultDependencies: ["ngRoute"]
+
     , getModuleDependencies: function () {
         if (citrus.extraNgDependencies) {
             var newItems = citrus.ng.defaultDependencies.concat(citrus.extraNgDependencies);
@@ -93,7 +95,7 @@ citrus.ng.app.services.baseService = function ($win, $loc, $util) {
     return baseService;
 }
 
-citrus.ng.app.controllers.baseController = function ($doc, $logger, $sab, $route, $routeParams, $alertService) {
+citrus.ng.app.controllers.baseController = function ($doc, $logger, $sab, $route, $routeParams) {
     /*
         this is intended to serve as the base controller
     */
@@ -241,7 +243,7 @@ citrus.ng.addService(citrus.ng.app.module
 
 citrus.ng.addService(citrus.ng.app.module
 					, "$baseController"
-					, ['$document', '$log', '$citrus', "$route", "$routeParams", "$alertService"]
+					, ['$document', '$log', '$citrus', "$route", "$routeParams"]
 					, citrus.ng.app.controllers.baseController);
 
 

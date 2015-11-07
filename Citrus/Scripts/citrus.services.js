@@ -47,4 +47,4 @@
     }
 }
 
-citrus.services = new citrus.factories('api', $.ajax);
+citrus.services = new citrus.factories('/api', $.ajax);
