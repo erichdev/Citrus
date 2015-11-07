@@ -186,6 +186,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Domain\Event.cs" />
+    <Compile Include="Models\Domain\Volunteer.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ItemResponse.cs" />
@@ -633,6 +635,7 @@
     <Content Include="Scripts\charts.js" />
     <Content Include="Scripts\citrus.js" />
     <Content Include="Scripts\citrus.ng.app.js" />
+    <Content Include="Scripts\citrus.services.js" />
     <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\flot-charts\bar-chart.js" />
     <Content Include="Scripts\flot-charts\curved-line-chart.js" />
@@ -4447,6 +4450,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Services\" />
     <Folder Include="vendors\bower_components\bower\Packager\" />
   </ItemGroup>
   <ItemGroup>
