@@ -41,6 +41,31 @@ namespace Citrus.Services
             return v;
         }
 
+        public static Event GetEventById(int Id)
+        {
+            Event e = new Event();
+
+            DataProvider.ExecuteCmd(GetConnection, "dbo.Volunteer_SelectById"
+               , inputParamMapper: delegate (SqlParameterCollection paramCollection)
+
+               { paramCollection.AddWithValue("@Id", Id); }
+
+               , map: delegate (IDataReader reader, short set)
+               {
+                   int startingIndex = 0;
+
+                   e.Id = reader.GetSafeInt32(startingIndex++);
+                   e.Name = reader.GetSafeString(startingIndex++);
+                   e.Organization = reader.GetSafeString(startingIndex++);
+                   e.CategoryId = reader.GetSafeInt32(startingIndex++);
+                   e.Address = reader.GetSafeString(startingIndex++);
+                   e.Description = reader.GetSafeString(startingIndex++);
+               }
+               );
+
+            return e;
+        }
+
         public static List<Event> GetSubscribedEvents(int Id)
         {
             List<Event> list = new List<Event>();
