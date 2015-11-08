@@ -1,45 +1,46 @@
-﻿@model Citrus.Models.ItemViewModel<int?>
+﻿@model Citrus.Models.ItemViewModel
 @{
     ViewBag.Title = "EventPage";
     Layout = "~/Views/Shared/_LayoutMaterial.cshtml";
 }
 
-<div class="card">
-    <div class="card-header" data-ng-controller="mainController as main">
-        <h2>{{}}</h2>
+<div class="card" ng-controller="mainController as main">
+    <div class="card-header">
+        <h1>{{main.item.Name}}</h1>
     </div>
 
     <div class="card-body card-padding">
-        <p class="c-black f-500 m-b-20">Basic Example</p>
+        <p class="c-black f-500 m-b-20">Organization</p>
 
         <div class="form-group">
             <div class="fg-line">
-                <textarea class="form-control" rows="5" placeholder="Let us type some lorem ipsum...."></textarea>
+                <p>{{main.item.Organization}}</p>
             </div>
         </div>
 
-        <p class="c-black f-500 m-t-20 m-b-20">Height Auto Growing</p>
+        <p class="c-black f-500 m-t-20 m-b-20">Address</p>
 
         <div class="form-group">
             <div class="fg-line">
-                <textarea class="form-control auto-size" placeholder="Start pressing Enter to see growing..."></textarea>
+                <p>{{main.item.Address}}</p>
             </div>
         </div>
 
-        <p class="c-black f-500 m-b-20 m-t-20">Disabled State</p>
+        <p class="c-black f-500 m-b-20 m-t-20">Description</p>
 
         <div class="form-group">
             <div class="fg-line disabled">
-                <textarea class="form-control" disabled>This is disabled</textarea>
+                <p>{{main.item.Description}}</p>
             </div>
         </div>
+        <button type="button" class="btn btn-primary" ng-click="main.alertVolunteers()">Alert Volunteers</button>
     </div>
 </div>
 
 @section scripts {
 
     <script type="text/javascript">
-        citrus.page.eventId = @Model.Item;
+        citrus.page.eventId = @Model.Item ;
     </script>
 
     <script type="text/javascript">
@@ -59,7 +60,9 @@
             vm.citrusService = $citrusService;
             vm.notify = vm.citrusService.getNotifier($scope);
 
+            vm.alertVolunteers = _alertVolunteers
             vm.getEventSuccess = _getEventSuccess;
+            vm.alertSuccess = _alertSuccess;
             vm.ajaxError = _ajaxError;
 
             render();
@@ -68,9 +71,22 @@
                 vm.citrusService.getEventById(citrus.page.eventId, vm.getEventSuccess, vm.ajaxError)
             }
 
+            function _alertVolunteers() {
+                vm.citrusService.alertVolunteers(vm.alertSuccess, vm.ajaxError);
+            }
+
             function _getEventSuccess(data) {
                 console.log(data);
-                vm.eventItem = data.item;
+                vm.notify( function() {
+                    vm.item = data.Item;
+                    console.log(vm.item);
+                });
+                
+            }
+
+            function _alertSuccess() {
+                alert("emails sent to volunteers!");
+                console.log("alert sent");
             }
 
             function _ajaxError(error) {

@@ -45,7 +45,7 @@ namespace Citrus.Services
         {
             Event e = new Event();
 
-            DataProvider.ExecuteCmd(GetConnection, "dbo.Volunteer_SelectById"
+            DataProvider.ExecuteCmd(GetConnection, "dbo.Event_SelectById"
                , inputParamMapper: delegate (SqlParameterCollection paramCollection)
 
                { paramCollection.AddWithValue("@Id", Id); }

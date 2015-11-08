@@ -5,8 +5,8 @@ using System.Web;
 
 namespace Citrus.Models
 {
-    public class ItemViewModel<T>
+    public class ItemViewModel
     {
-        public T Item { get; set; }
+        public int Item { get; set; }
     }
 }
