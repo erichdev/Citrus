@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Citrus.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,10 +14,13 @@ namespace Citrus.Controllers
             return View();
         }
 
-
-
-
-
+        [Route("event/{eventId:int}")]
+        public ActionResult Event(int? eventId = 0)
+        {
+            ItemViewModel<int?> model = new ItemViewModel<int?>();
+            model.Item = eventId;
+            return View("EventPage", model);
+        }
 
         public ActionResult Index()
         {

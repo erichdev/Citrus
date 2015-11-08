@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using Twilio;
+using System.Web.Configuration;
 
 namespace Citrus.Services
 {
@@ -54,7 +54,7 @@ namespace Citrus.Services
                    e.Id = reader.GetSafeInt32(startingIndex++);
                    e.Name = reader.GetSafeString(startingIndex++);
                    e.Organization = reader.GetSafeString(startingIndex++);
-                   e.Category = reader.GetSafeInt32(startingIndex++);
+                   e.CategoryId = reader.GetSafeInt32(startingIndex++);
                    e.Address = reader.GetSafeString(startingIndex++);
                    e.Description = reader.GetSafeString(startingIndex++);
 
@@ -92,7 +92,7 @@ namespace Citrus.Services
                    e.Id = reader.GetSafeInt32(startingIndex++);
                    e.Name = reader.GetSafeString(startingIndex++);
                    e.Organization = reader.GetSafeString(startingIndex++);
-                   e.Category = reader.GetSafeInt32(startingIndex++);
+                   e.CategoryId = reader.GetSafeInt32(startingIndex++);
                    e.Address = reader.GetSafeString(startingIndex++);
                    e.Description = reader.GetSafeString(startingIndex++);
 
@@ -107,6 +107,31 @@ namespace Citrus.Services
                );
 
             return list;
+        }
+
+        public static Event GetEventById(int Id)
+        {
+            Event e = null;
+
+            DataProvider.ExecuteCmd(GetConnection, "dbo.Event_SelectById"
+               , inputParamMapper: delegate (SqlParameterCollection paramCollection)
+               {
+                   paramCollection.AddWithValue("@Id", Id);
+               }
+               , map: delegate (IDataReader reader, short set)
+               {
+                   int startingIndex = 0;
+
+                   e.Id = reader.GetSafeInt32(startingIndex++);
+                   e.Name = reader.GetSafeString(startingIndex++);
+                   e.Organization = reader.GetSafeString(startingIndex++);
+                   e.CategoryId = reader.GetSafeInt32(startingIndex++);
+                   e.Address = reader.GetSafeString(startingIndex++);
+                   e.Description = reader.GetSafeString(startingIndex++);
+               }
+               );
+
+            return e;
         }
     }
 }

@@ -20,6 +20,8 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href="~/Content/custom.css" rel="stylesheet" />
 
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
 
 </head>
 <body ng-app="citrusApp">

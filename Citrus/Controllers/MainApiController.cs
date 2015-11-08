@@ -21,6 +21,15 @@ namespace Citrus.Controllers
             return Request.CreateResponse(response);
         }
 
+        [Route("event/{Id:int}"), HttpGet]
+        public HttpResponseMessage GetEventById(int Id)
+        {
+            ItemResponse<Event> response = new ItemResponse<Event>();
+            response.Item = MainService.GetEventById(Id);
+            return Request.CreateResponse(response);
+        }
+
+
         [Route("volunteer/{Id:int}/events/subscribed"), HttpGet]
         public HttpResponseMessage GetSubscribedEvents(int Id)
         {
@@ -36,5 +45,6 @@ namespace Citrus.Controllers
             response.Items = MainService.GetNearbyEvents(Id);
             return Request.CreateResponse(response);
         }
+
     }
 }
