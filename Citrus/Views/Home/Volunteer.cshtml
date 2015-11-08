@@ -101,7 +101,7 @@
 
 
                     <uib-tabset class="tab-nav m-l-20">
-                        <uib-tab>
+                        <uib-tab select="main.refresh()">
                             <uib-tab-heading class="waves-effect">
                                 <span class="tabLink">Events I'm Attending</span>
                             </uib-tab-heading>
@@ -109,13 +109,14 @@
 
                                 <div id="map_subscribed" class="hidden-sm"></div>
 
-                                <div class="row" ng-repeat="event in main.subscribedEvents">
+                                <div class="row" ng-repeat="event in main.subscribedEvents" >
                                     <div class="col-md-7">
                                         <h3>{{event.Name}}</h3>
                                         <h4>{{event.Organization}}</h4>
                                         <p class="m-b-10">{{event.Address}}</p>
                                         <p class="m-b-10"><strong>Category: </strong> {{main.parseCategory(event.CategoryId)}}</p>
-                                        <button class="btn btn-info waves-effect m-b-10">Unfollow</button>
+                                        <button class="btn btn-info waves-effect m-b-10" ng-click="main.unsubscribe(event.Id) ">Unfollow</button>
+                                     
                                         <p>{{event.Description}}</p>
                                     </div>
                                     <div class="col-md-5">
@@ -130,13 +131,13 @@
                             </div>
                         </uib-tab>
 
-                        <uib-tab>
+                        <uib-tab  select="main.refresh()">
                             <uib-tab-heading class="waves-effect">
                                 <span class="tabLink">Events Near Me</span>
                             </uib-tab-heading>
                             <div class="pmb-block p-t-0">
 
-                                @*<div id="map_nearby"></div>*@
+                                <div id="map_nearby"></div>
 
                                 <div class="row" ng-repeat="event in main.nearbyEvents">
                                     <div class="col-md-7">
@@ -144,7 +145,7 @@
                                         <h4>{{event.Organization}}</h4>
                                         <p class="m-b-10">{{event.Address}}</p>
                                         <p class="m-b-10"><strong>Category: </strong> {{main.parseCategory(event.CategoryId)}}</p>
-                                        <button class="btn btn-info waves-effect m-b-10">Attend</button>
+                                        <button class="btn btn-info waves-effect m-b-10" ng-click="main.subscribe(event.Id)">Attend</button>
                                         <p>{{event.Description}}</p>
                                     </div>
                                     <div class="col-md-5">
@@ -198,12 +199,13 @@
             vm.nearbyEvents = [];
             vm.volunteer = {};
 
+            vm.refresh = render;
             vm.getVolunteerSuccess = _getVolunteerSuccess;
             vm.getSubscribedSuccess = _getSubscribedSuccess;
             vm.getNearbySuccess = _getNearbySuccess;
             vm.ajaxError = _ajaxError;
 
-            vm.categories = [
+            vm.categoryNames = [
                 "Environment"
                 , "Healthcare"
                 , "Youth"
@@ -212,6 +214,9 @@
             ];
 
             vm.parseCategory = _parseCategory;
+            vm.subscribe = _subscribe;
+            vm.unsubscribe = _unsubscribe;
+
 
             render();
 
@@ -223,12 +228,24 @@
             }
 
             function _parseCategory(id) {
-                if (vm.categories[id -1] != null) {
-                    return vm.categories[id - 1];
+                if (vm.categoryNames[id -1] != null) {
+                    return vm.categoryNames[id - 1];
                 }
                 else {
                     return "Uncategorized";
                 }
+            }
+
+            function _subscribe(eventId) {
+                vm.citrusService.subscribeEvent(eventId, onSubscribeSuccess, vm.ajaxError);
+            }
+
+            function _unsubscribe(eventId) {
+                vm.citrusService.unsubscribeEvent(eventId, onSubscribeSuccess, vm.ajaxError);
+            }
+
+            function onSubscribeSuccess(data) {
+                console.log(data);
             }
 
             function _getVolunteerSuccess(data) {
@@ -282,32 +299,32 @@
                     vm.nearbyEvents = data.Items;
                 });
 
-                //var map;
-                //var elevator;
-                //var myOptions = {
-                //    zoom: 10,
-                //    center: new google.maps.LatLng(34.079516, -118.417480),
-                //    mapTypeId: 'roadmap'
-                //};
-                //map = new google.maps.Map($('#map_nearby')[0], myOptions);
+                var map;
+                var elevator;
+                var myOptions = {
+                    zoom: 10,
+                    center: new google.maps.LatLng(34.079516, -118.417480),
+                    mapTypeId: 'roadmap'
+                };
+                map = new google.maps.Map($('#map_nearby')[0], myOptions);
 
-                //var addresses = [];
+                var addresses = [];
 
-                //for (var x = 0; x < vm.nearbyEvents.length; x++) {
-                //    addresses.push(vm.nearbyEvents[x].Address);
-                //}
+                for (var x = 0; x < vm.nearbyEvents.length; x++) {
+                    addresses.push(vm.nearbyEvents[x].Address);
+                }
 
-                //for (var x = 0; x < addresses.length; x++) {
-                //    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + addresses[x] + '&sensor=false', null, function (data) {
-                //        var p = data.results[0].geometry.location
-                //        var latlng = new google.maps.LatLng(p.lat, p.lng);
-                //        new google.maps.Marker({
-                //            position: latlng,
-                //            map: map
-                //        });
+                for (var x = 0; x < addresses.length; x++) {
+                    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + addresses[x] + '&sensor=false', null, function (data) {
+                        var p = data.results[0].geometry.location
+                        var latlng = new google.maps.LatLng(p.lat, p.lng);
+                        new google.maps.Marker({
+                            position: latlng,
+                            map: map
+                        });
 
-                //    });
-                //}
+                    });
+                }
 
             }
 

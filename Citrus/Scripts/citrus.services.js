@@ -8,6 +8,8 @@
     thisService.getSubscribedEvents = _getSubscribedEvents;
     thisService.getNearbyEvents = _getNearbyEvents;
     thisService.alertVolunteers = _alertVolunteers;
+    thisService.subscribeEvent = _subscribeEvent;
+    thisService.unsubscribeEvent = _unsubscribeEvent;
 
     function _getVolunteerById(id, onSuccess, onError) {
         var link = apiRoot + "/volunteer/" + id
@@ -67,6 +69,33 @@
             cache: false,
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             type: 'put',
+            dataType: "json",
+            success: onSuccess,
+            error: onError
+        }
+        thisService.ajax(link, settings);
+    }
+
+   
+    function _subscribeEvent (id, onSuccess, onError) {
+        var link = apiRoot + "/event/" + id + "/subscribe";
+        var settings = {
+            cache: false,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            type: 'post',
+            dataType: "json",
+            success: onSuccess,
+            error: onError
+        }
+        thisService.ajax(link, settings);
+    }
+
+    function _unsubscribeEvent(id, onSuccess, onError) {
+        var link = apiRoot + "/event/" + id + "/unsubscribe";
+        var settings = {
+            cache: false,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            type: 'delete',
             dataType: "json",
             success: onSuccess,
             error: onError

@@ -56,5 +56,20 @@ namespace Citrus.Controllers
             return Request.CreateResponse(response);
         }
 
+        [Route("event/{eventId:int}/subscribe"),HttpPost]
+        public HttpResponseMessage SubscribedEventsInsert(int eventId)
+        {
+            MainService.SubscribedEventsInsert(1, eventId);
+            SuccessResponse response = new SuccessResponse();
+            return Request.CreateResponse(response);
+        }
+
+        [Route("event/{eventId:int}/unsubscribe"), HttpDelete]
+        public HttpResponseMessage SubscribedEventsDelete(int eventId)
+        {
+            MainService.SubscribedEventsDelete(1, eventId);
+            SuccessResponse response = new SuccessResponse();
+            return Request.CreateResponse(response);
+        }
     }
 }

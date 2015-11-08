@@ -161,5 +161,39 @@ namespace Citrus.Services
             return (RestResponse)client.Execute(request);
         }
 
+
+        public static void SubscribedEventsInsert(int userId, int eventId)
+        {
+
+            DataProvider.ExecuteNonQuery(GetConnection, "dbo.SubscribedEvents_Insert"
+               , inputParamMapper: delegate (SqlParameterCollection paramCollection)
+               {
+                   paramCollection.AddWithValue("@UserId", userId);
+                   paramCollection.AddWithValue("@EventId", eventId);
+
+               }
+
+               , returnParameters: delegate (SqlParameterCollection param)
+               {
+               }
+               );
+        }
+
+        public static void SubscribedEventsDelete(int userId, int eventId)
+        {
+
+            DataProvider.ExecuteNonQuery(GetConnection, "dbo.SubscribedEvents_Delete"
+               , inputParamMapper: delegate (SqlParameterCollection paramCollection)
+               {
+                   paramCollection.AddWithValue("@UserId", userId);
+                   paramCollection.AddWithValue("@EventId", eventId);
+
+               }
+
+               , returnParameters: delegate (SqlParameterCollection param)
+               {
+               }
+               );
+        }
     }
 }
