@@ -1,5 +1,7 @@
 ﻿using Citrus.Data;
 using Citrus.Models.Domain;
+using RestSharp;
+using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,7 +16,7 @@ namespace Citrus.Services
     {
         public static Volunteer GetVolunteerById(int Id)
         {
-            Volunteer v = null;
+            Volunteer v = new Volunteer();
 
             DataProvider.ExecuteCmd(GetConnection, "dbo.Volunteer_SelectById"
                , inputParamMapper: delegate (SqlParameterCollection paramCollection)
@@ -24,6 +26,8 @@ namespace Citrus.Services
                , map: delegate (IDataReader reader, short set)
                {
                    int startingIndex = 0;
+
+               
 
                    v.Id = reader.GetSafeInt32(startingIndex++);
                    v.Name = reader.GetSafeString(startingIndex++);
@@ -109,29 +113,28 @@ namespace Citrus.Services
             return list;
         }
 
-        public static Event GetEventById(int Id)
+
+        public static RestResponse SendSimpleMessage(string name, string email)
         {
-            Event e = null;
 
-            DataProvider.ExecuteCmd(GetConnection, "dbo.Event_SelectById"
-               , inputParamMapper: delegate (SqlParameterCollection paramCollection)
-               {
-                   paramCollection.AddWithValue("@Id", Id);
-               }
-               , map: delegate (IDataReader reader, short set)
-               {
-                   int startingIndex = 0;
+            string MailGunKey = WebConfigurationManager.AppSettings["MailGunKey"];
 
-                   e.Id = reader.GetSafeInt32(startingIndex++);
-                   e.Name = reader.GetSafeString(startingIndex++);
-                   e.Organization = reader.GetSafeString(startingIndex++);
-                   e.CategoryId = reader.GetSafeInt32(startingIndex++);
-                   e.Address = reader.GetSafeString(startingIndex++);
-                   e.Description = reader.GetSafeString(startingIndex++);
-               }
-               );
-
-            return e;
+            RestClient client = new RestClient();
+            client.BaseUrl = new Uri("https://api.mailgun.net/v3");
+            client.Authenticator =
+                   new HttpBasicAuthenticator("api",
+                                              MailGunKey);
+            RestRequest request = new RestRequest();
+            request.AddParameter("domain",
+                                "sandbox0ffd1e1851714d94b8b5f20390a50dd3.mailgun.org", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "Mailgun Sandbox <postmaster@sandbox0ffd1e1851714d94b8b5f20390a50dd3.mailgun.org>");
+            request.AddParameter("to", email);
+            request.AddParameter("subject", "A volunteer opportunity for you");
+            request.AddParameter("text", "Hi " + name + ", there is a volunteering opportunity that you might be interested in! Log in to volunteerme.dev to find more information.");
+            request.Method = Method.POST;
+            return (RestResponse)client.Execute(request);
         }
+
     }
 }

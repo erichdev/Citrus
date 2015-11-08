@@ -1,6 +1,7 @@
 ﻿using Citrus.Models;
 using Citrus.Models.Domain;
 using Citrus.Services;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,15 @@ namespace Citrus.Controllers
         {
             ItemsResponse<Event> response = new ItemsResponse<Event>();
             response.Items = MainService.GetNearbyEvents(Id);
+            return Request.CreateResponse(response);
+        }
+
+        [Route("sendemail"), HttpPut]
+        public HttpResponseMessage SendEmail()
+        {
+            string email = "<johndoe247@mailinator.com>";
+            string name = "John Doe";
+            RestResponse response = MainService.SendSimpleMessage(name, email);
             return Request.CreateResponse(response);
         }
 

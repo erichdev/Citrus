@@ -20,8 +20,8 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href="~/Content/custom.css" rel="stylesheet" />
 
-    @if (IsSectionDefined("Styles"))
-    {@RenderSection("Styles", required: false)}
+    @RenderSection("styles", required: false)
+
 
 </head>
 <body ng-app="citrusApp">
@@ -49,6 +49,7 @@
     <!-- Javascript Libraries -->
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-route.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-0.14.3.js"></script>
 
     <script src="/vendors/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

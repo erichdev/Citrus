@@ -11,7 +11,7 @@ citrus.ng = {
 	, exceptions: {}
 	, examples: {}
 	//, defaultDependencies: ["ngAnimate", "ngRoute", "ngSanitize", "ngCookies", "ui.bootstrap", ]
-    	, defaultDependencies: ["ngRoute"]
+    	, defaultDependencies: ["ngRoute", "ui.bootstrap"]
 
     , getModuleDependencies: function () {
         if (citrus.extraNgDependencies) {
