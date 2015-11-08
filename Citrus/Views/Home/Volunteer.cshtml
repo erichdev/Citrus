@@ -13,6 +13,11 @@
         .tabLink {
             font-size: 16px;
         }
+
+        #map_subscribed, #map_nearby {
+            width: 95%;
+            height: 300px;
+        }
     </style>
 
 }
@@ -83,13 +88,14 @@
 
 
 
-
                     <uib-tabset class="tab-nav">
                         <uib-tab>
                             <uib-tab-heading class="waves-effect">
                                 <span class="tabLink">Events I'm Attending</span>
                             </uib-tab-heading>
                             <div class="pmb-block p-t-0">
+
+                                <div id="map_subscribed"></div>
 
                                 <div class="row" ng-repeat="event in main.subscribedEvents">
                                     <div class="col-md-7">
@@ -100,10 +106,10 @@
                                     </div>
                                     <div class="col-md-5">
                                         <img ng-src="https://maps.googleapis.com/maps/api/staticmap?markers={{event.Address}}&zoom=15&size=300x200&maptype=roadmap&scale=2"
-                                             class="img-responsive m-t-20"/>
+                                             class="img-responsive m-t-20" />
                                     </div>
 
-                                   
+
 
                                     <hr />
                                 </div>
@@ -115,6 +121,8 @@
                                 <span class="tabLink">Events Near Me</span>
                             </uib-tab-heading>
                             <div class="pmb-block p-t-0">
+
+                                @*<div id="map_nearby"></div>*@
 
                                 <div class="row" ng-repeat="event in main.nearbyEvents">
                                     <div class="col-md-7">
@@ -152,9 +160,11 @@
 
 @section scripts {
 
+    <script src="~/Scripts/google.maps.js"></script>
+
     <script type="text/javascript">
 
-        citrus.services.factory = function ($baseService) {
+            citrus.services.factory = function ($baseService) {
             var aServiceObject = citrus.services;
             var newService = $baseService.merge(true, {}, aServiceObject, $baseService);
             return newService;
@@ -198,6 +208,37 @@
                 vm.notify(function () {
                     vm.subscribedEvents = data.Items;
                 });
+
+
+                var map;
+                var elevator;
+                var myOptions = {
+                    zoom: 10,
+                    center: new google.maps.LatLng(34.058755, -118.393105),
+                    mapTypeId: 'roadmap'
+                };
+                map = new google.maps.Map($('#map_subscribed')[0], myOptions);
+
+                var addresses = [];
+
+                for (var x = 0; x < vm.subscribedEvents.length; x++) {
+                    addresses.push(vm.subscribedEvents[x].Address);
+                }
+
+                for (var x = 0; x < addresses.length; x++) {
+                    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + addresses[x] + '&sensor=false', null, function (data) {
+                        var p = data.results[0].geometry.location
+                        var latlng = new google.maps.LatLng(p.lat, p.lng);
+                        new google.maps.Marker({
+                            position: latlng,
+                            map: map
+                        });
+
+                    });
+                }
+
+
+
             }
 
             function _getNearbySuccess(data) {
@@ -205,11 +246,47 @@
                 vm.notify(function () {
                     vm.nearbyEvents = data.Items;
                 });
+
+                //var map;
+                //var elevator;
+                //var myOptions = {
+                //    zoom: 10,
+                //    center: new google.maps.LatLng(34.079516, -118.417480),
+                //    mapTypeId: 'roadmap'
+                //};
+                //map = new google.maps.Map($('#map_nearby')[0], myOptions);
+
+                //var addresses = [];
+
+                //for (var x = 0; x < vm.nearbyEvents.length; x++) {
+                //    addresses.push(vm.nearbyEvents[x].Address);
+                //}
+
+                //for (var x = 0; x < addresses.length; x++) {
+                //    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + addresses[x] + '&sensor=false', null, function (data) {
+                //        var p = data.results[0].geometry.location
+                //        var latlng = new google.maps.LatLng(p.lat, p.lng);
+                //        new google.maps.Marker({
+                //            position: latlng,
+                //            map: map
+                //        });
+
+                //    });
+                //}
+
             }
 
             function _ajaxError(error) {
                 console.log("ajax error: ", error);
             }
+
+
+
+
+
+           
+
+
         }
 
         citrus.ng.addService(citrus.ng.app.module
@@ -221,6 +298,11 @@
             , "mainController"
             , ['$scope', '$baseController', '$citrusService']
             , citrus.page.mainControllerFactory);
+
+
+        
+
+
 
     </script>
 

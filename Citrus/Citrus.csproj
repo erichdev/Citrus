@@ -4486,6 +4486,7 @@
     <Content Include="Views\Home\Demo.cshtml" />
     <Content Include="Views\Home\Volunteer.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Scripts\google.maps.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
