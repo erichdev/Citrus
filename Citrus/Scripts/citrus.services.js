@@ -7,6 +7,7 @@
     thisService.getEventById = _getEventById;
     thisService.getSubscribedEvents = _getSubscribedEvents;
     thisService.getNearbyEvents = _getNearbyEvents;
+    thisService.getVolunteerCatByUser = _getVolunteerCatByUser;
     thisService.alertVolunteers = _alertVolunteers;
 
     function _getVolunteerById(id, onSuccess, onError) {
@@ -50,6 +51,19 @@
 
     function _getNearbyEvents(id, onSuccess, onError) {
         var link = apiRoot + "/volunteer/" + id + "/events/nearby"
+        var settings = {
+            cache: false,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            type: 'get',
+            dataType: "json",
+            success: onSuccess,
+            error: onError
+        }
+        thisService.ajax(link, settings);
+    }
+
+    function _getVolunteerCatByUser(id, onSuccess, onError) {
+        var link = apiRoot + "/category/" + id;
         var settings = {
             cache: false,
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",

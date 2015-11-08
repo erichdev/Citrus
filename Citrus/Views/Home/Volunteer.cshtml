@@ -143,6 +143,24 @@
                             </div>
                         </uib-tab>
 
+                        <uib-tab>
+                            <uib-tab-heading class="waves-effect">
+                                <span class="tabLink">Events I'm Interested in</span>
+                            </uib-tab-heading>
+                            <div class="pmb-block p-t-0">
+
+                                <div class="row" ng-repeat="category in main.categories">
+                                    <div class="col-md-3">
+                                        <button class="btn btn-primary btn-sm" ng-if="category.follow" ng-click="main.toggleCategory(category)">follow</button>
+                                        <button class="btn btn-primary btn-sm" ng-if="!category.follow" ng-click="main.toggleCategory(category)">Unfollow</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{category.cat}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+
                     </uib-tabset>
 
 
@@ -181,10 +199,19 @@
             vm.subscribedEvents = [];
             vm.nearbyEvents = [];
             vm.volunteer = {};
+            vm.categories = [
+                { "id": 1, "cat": "Environment", "follow": true },
+                { "id": 2, "cat": "Healthcare", "follow": true },
+                { "id": 3, "cat": "Children", "follow": true },
+                { "id": 4, "cat": "Elderly", "follow": true },
+                { "id": 5, "cat": "Poverty", "follow": true },
+            ]
 
+            vm.toggleCategory = _toggleCategory;
             vm.getVolunteerSuccess = _getVolunteerSuccess;
             vm.getSubscribedSuccess = _getSubscribedSuccess;
             vm.getNearbySuccess = _getNearbySuccess;
+            vm.volunteerCatSuccess = _volunteerCatSuccess;
             vm.ajaxError = _ajaxError;
 
             render();
@@ -194,6 +221,11 @@
                 vm.citrusService.getVolunteerById(1, vm.getVolunteerSuccess, vm.ajaxError);
                 vm.citrusService.getSubscribedEvents(1, vm.getSubscribedSuccess, vm.ajaxError);
                 vm.citrusService.getNearbyEvents(1, vm.getNearbySuccess, vm.ajaxError);
+                vm.citrusService.getVolunteerCatByUser(1, vm.volunteerCatSuccess, vm.ajaxError);
+            }
+
+            function _toggleCategory(cat) {
+                cat.follow = !cat.follow;
             }
 
             function _getVolunteerSuccess(data) {
@@ -276,15 +308,23 @@
 
             }
 
+            function _volunteerCatSuccess(data) {
+                vm.volCat = data.Items;
+                for (var i = 0; i < vm.volCat.length; i++) {
+                    for (var j = 0; j < vm.categories.length; j++) {
+                        if (vm.volCat[i].categoryId == vm.categories[j].id) {
+                            vm.notify(function () {
+                                vm.categories[j].follow = false;
+                            });
+                        }
+                    }
+                }
+                console.log("cat: ", vm.volCat);
+            }
+
             function _ajaxError(error) {
                 console.log("ajax error: ", error);
             }
-
-
-
-
-
-           
 
 
         }
@@ -298,10 +338,6 @@
             , "mainController"
             , ['$scope', '$baseController', '$citrusService']
             , citrus.page.mainControllerFactory);
-
-
-        
-
 
 
     </script>

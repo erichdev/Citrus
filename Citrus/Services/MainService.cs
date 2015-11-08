@@ -138,6 +138,36 @@ namespace Citrus.Services
             return list;
         }
 
+        public static List<VolCategory> GetVolunteerCategoryByUser(int Id)
+        {
+            List<VolCategory> list = new List<VolCategory>();
+
+            DataProvider.ExecuteCmd(GetConnection, "dbo.VolunteerCategory_SelectByUserId"
+               , inputParamMapper: delegate (SqlParameterCollection paramCollection)
+
+               { paramCollection.AddWithValue("@UserId", Id); }
+
+               , map: delegate (IDataReader reader, short set)
+               {
+                   int startingIndex = 0;
+                   VolCategory v = new VolCategory();
+
+                   v.Id = reader.GetSafeInt32(startingIndex++);
+                   v.UserId = reader.GetSafeInt32(startingIndex++);
+                   v.CategoryId = reader.GetSafeInt32(startingIndex++);
+
+                   if (list == null)
+                   {
+                       list = new List<VolCategory>();
+                   }
+
+                   list.Add(v);
+
+               }
+               );
+
+            return list;
+        }
 
         public static RestResponse SendSimpleMessage(string name, string email)
         {
