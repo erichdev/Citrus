@@ -14,11 +14,11 @@ namespace Citrus.Controllers
             return View();
         }
 
-        [Route("event/{Id:int}")]
-        public ActionResult Event(int Id)
+        [Route("event/{id:int}")]
+        public ActionResult Event(int id)
         {
-            ItemViewModel<int> model = new ItemViewModel<int>();
-            model.Item = Id;
+            ItemViewModel model = new ItemViewModel();
+            model.Item = id;
             return View("EventPage", model);
         }
 
