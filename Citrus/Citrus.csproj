@@ -435,6 +435,8 @@
     <Content Include="img\notifications.png" />
     <Content Include="img\profile-menu.png" />
     <Content Include="img\profile-pics\1.jpg" />
+    <Content Include="img\profile-pics\1.png" />
+    <Content Include="img\profile-pics\10.jpg" />
     <Content Include="img\profile-pics\2.jpg" />
     <Content Include="img\profile-pics\3.jpg" />
     <Content Include="img\profile-pics\4.jpg" />
