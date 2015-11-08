@@ -9,7 +9,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
-using Twilio;
 
 namespace Citrus.Services
 {
@@ -59,7 +58,7 @@ namespace Citrus.Services
                    e.Id = reader.GetSafeInt32(startingIndex++);
                    e.Name = reader.GetSafeString(startingIndex++);
                    e.Organization = reader.GetSafeString(startingIndex++);
-                   e.Category = reader.GetSafeInt32(startingIndex++);
+                   e.CategoryId = reader.GetSafeInt32(startingIndex++);
                    e.Address = reader.GetSafeString(startingIndex++);
                    e.Description = reader.GetSafeString(startingIndex++);
 
@@ -97,7 +96,7 @@ namespace Citrus.Services
                    e.Id = reader.GetSafeInt32(startingIndex++);
                    e.Name = reader.GetSafeString(startingIndex++);
                    e.Organization = reader.GetSafeString(startingIndex++);
-                   e.Category = reader.GetSafeInt32(startingIndex++);
+                   e.CategoryId = reader.GetSafeInt32(startingIndex++);
                    e.Address = reader.GetSafeString(startingIndex++);
                    e.Description = reader.GetSafeString(startingIndex++);
 

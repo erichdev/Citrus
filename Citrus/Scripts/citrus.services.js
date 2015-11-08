@@ -4,11 +4,25 @@
     thisService.apiRoot = apiRoot;
     thisService.ajax = ajaxFx;
     thisService.getVolunteerById = _getVolunteerById;
+    thisService.getEventById = _getEventById;
     thisService.getSubscribedEvents = _getSubscribedEvents;
     thisService.getNearbyEvents = _getNearbyEvents;
 
     function _getVolunteerById(id, onSuccess, onError) {
         var link = apiRoot + "/volunteer/" + id
+        var settings = {
+            cache: false,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            type: 'get',
+            dataType: "json",
+            success: onSuccess,
+            error: onError
+        }
+        thisService.ajax(link, settings);
+    }
+
+    function _getEventById(id, onSuccess, onError) {
+        var link = apiRoot + "/event/" + id
         var settings = {
             cache: false,
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
