@@ -18,6 +18,18 @@
             width: 95%;
             height: 300px;
         }
+
+        .nav-tabs > li > a, .nav-tabs > li > a:hover, .nav-tabs > li.active > a:focus {
+            color: #555;
+        }
+
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+            color: #2196f3;
+        }
+
+        .nav-tabs > li.active {
+            border-bottom: 2px solid #2196f3;
+        }
     </style>
 
 }
@@ -88,20 +100,22 @@
 
 
 
-                    <uib-tabset class="tab-nav">
+                    <uib-tabset class="tab-nav m-l-20">
                         <uib-tab>
                             <uib-tab-heading class="waves-effect">
                                 <span class="tabLink">Events I'm Attending</span>
                             </uib-tab-heading>
                             <div class="pmb-block p-t-0">
 
-                                <div id="map_subscribed"></div>
+                                <div id="map_subscribed" class="hidden-sm"></div>
 
                                 <div class="row" ng-repeat="event in main.subscribedEvents">
                                     <div class="col-md-7">
                                         <h3>{{event.Name}}</h3>
                                         <h4>{{event.Organization}}</h4>
-                                        <p>{{event.Address}}</p>
+                                        <p class="m-b-10">{{event.Address}}</p>
+                                        <p class="m-b-10"><strong>Category: </strong> {{main.parseCategory(event.CategoryId)}}</p>
+                                        <button class="btn btn-info waves-effect m-b-10">Unfollow</button>
                                         <p>{{event.Description}}</p>
                                     </div>
                                     <div class="col-md-5">
@@ -109,7 +123,7 @@
                                              class="img-responsive m-t-20" />
                                     </div>
 
-
+                                    <div class="clearfix"></div>
 
                                     <hr />
                                 </div>
@@ -128,7 +142,9 @@
                                     <div class="col-md-7">
                                         <h3>{{event.Name}}</h3>
                                         <h4>{{event.Organization}}</h4>
-                                        <p>{{event.Address}}</p>
+                                        <p class="m-b-10">{{event.Address}}</p>
+                                        <p class="m-b-10"><strong>Category: </strong> {{main.parseCategory(event.CategoryId)}}</p>
+                                        <button class="btn btn-info waves-effect m-b-10">Attend</button>
                                         <p>{{event.Description}}</p>
                                     </div>
                                     <div class="col-md-5">
@@ -164,7 +180,7 @@
 
     <script type="text/javascript">
 
-            citrus.services.factory = function ($baseService) {
+        citrus.services.factory = function ($baseService) {
             var aServiceObject = citrus.services;
             var newService = $baseService.merge(true, {}, aServiceObject, $baseService);
             return newService;
@@ -187,6 +203,16 @@
             vm.getNearbySuccess = _getNearbySuccess;
             vm.ajaxError = _ajaxError;
 
+            vm.categories = [
+                "Environment"
+                , "Healthcare"
+                , "Youth"
+                , "Elderly"
+                , "Poverty"
+            ];
+
+            vm.parseCategory = _parseCategory;
+
             render();
 
             function render() {
@@ -194,6 +220,15 @@
                 vm.citrusService.getVolunteerById(1, vm.getVolunteerSuccess, vm.ajaxError);
                 vm.citrusService.getSubscribedEvents(1, vm.getSubscribedSuccess, vm.ajaxError);
                 vm.citrusService.getNearbyEvents(1, vm.getNearbySuccess, vm.ajaxError);
+            }
+
+            function _parseCategory(id) {
+                if (vm.categories[id -1] != null) {
+                    return vm.categories[id - 1];
+                }
+                else {
+                    return "Uncategorized";
+                }
             }
 
             function _getVolunteerSuccess(data) {
@@ -284,7 +319,7 @@
 
 
 
-           
+
 
 
         }
@@ -300,7 +335,7 @@
             , citrus.page.mainControllerFactory);
 
 
-        
+
 
 
 
