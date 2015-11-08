@@ -47,6 +47,14 @@ namespace Citrus.Controllers
             return Request.CreateResponse(response);
         }
 
+        [Route("category/{Id:int}"), HttpGet]
+        public HttpResponseMessage GetVolunteerCategoryByUser(int Id)
+        {
+            ItemsResponse<VolCategory> response = new ItemsResponse<VolCategory>();
+            response.Items = MainService.GetVolunteerCategoryByUser(Id);
+            return Request.CreateResponse(response);
+        }
+
         [Route("sendemail"), HttpPut]
         public HttpResponseMessage SendEmail()
         {

@@ -229,6 +229,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Domain\Event.cs" />
     <Compile Include="Models\Domain\TextMessage.cs" />
+    <Compile Include="Models\Domain\VolCategory.cs" />
     <Compile Include="Models\Domain\Volunteer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ItemResponse.cs" />
