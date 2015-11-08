@@ -41,7 +41,9 @@ namespace Citrus.Controllers
         [Route("sendemail"), HttpPut]
         public HttpResponseMessage SendEmail()
         {
-            RestResponse response = MainService.SendSimpleMessage();
+            string email = "<johndoe247@mailinator.com>";
+            string name = "John Doe";
+            RestResponse response = MainService.SendSimpleMessage(name, email);
             return Request.CreateResponse(response);
         }
 

@@ -91,11 +91,19 @@
                             </uib-tab-heading>
                             <div class="pmb-block p-t-0">
 
-                                <div ng-repeat="event in main.subscribedEvents">
-                                    <h3>{{event.Name}}</h3>
-                                    <h4>{{event.Organization}}</h4>
-                                    <p>{{event.Address}}</p>
-                                    <p>{{event.Description}}</p>
+                                <div class="row" ng-repeat="event in main.subscribedEvents">
+                                    <div class="col-md-7">
+                                        <h3>{{event.Name}}</h3>
+                                        <h4>{{event.Organization}}</h4>
+                                        <p>{{event.Address}}</p>
+                                        <p>{{event.Description}}</p>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <img ng-src="https://maps.googleapis.com/maps/api/staticmap?markers={{event.Address}}&zoom=15&size=300x200&maptype=roadmap&scale=2"
+                                             class="img-responsive m-t-20"/>
+                                    </div>
+
+                                   
 
                                     <hr />
                                 </div>
@@ -108,11 +116,19 @@
                             </uib-tab-heading>
                             <div class="pmb-block p-t-0">
 
-                                <div ng-repeat="event in main.nearbyEvents">
-                                    <h3>{{event.Name}}</h3>
-                                    <h4>{{event.Organization}}</h4>
-                                    <p>{{event.Address}}</p>
-                                    <p>{{event.Description}}</p>
+                                <div class="row" ng-repeat="event in main.nearbyEvents">
+                                    <div class="col-md-7">
+                                        <h3>{{event.Name}}</h3>
+                                        <h4>{{event.Organization}}</h4>
+                                        <p>{{event.Address}}</p>
+                                        <p>{{event.Description}}</p>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <img ng-src="https://maps.googleapis.com/maps/api/staticmap?markers={{event.Address}}&zoom=15&size=300x200&maptype=roadmap&scale=2"
+                                             class="img-responsive m-t-20" />
+                                    </div>
+
+
 
                                     <hr />
                                 </div>
@@ -127,59 +143,10 @@
 
 
 
-                    @*<ul class="tab-nav tn-justified">
-                            <li class="active waves-effect"><a ng-href="#subscribed" data-toggle="tab" aria-controls="subscribed">Events</a></li>
-                            <li class="waves-effect"><a ng-href="#near" data-toggle="tab" aria-controls="near">Events Near Me</a></li>
-
-                        </ul>
-
-                        <div class="tab-content">
-
-                            <div role="tabpanel" class="tab-pane active" id="subscribed">
-                                <div class="pmb-block p-t-0">
-                                    <div ng-repeat="event in main.subscribedEvents">
-                                        <h3>{{event.Name}}</h3>
-                                        <h4>{{event.Organization}}</h4>
-                                        <p>{{event.Address}}</p>
-                                        <p>{{event.Description}}</p>
-
-                                        <hr />
-                                    </div>
-
-
-
-                                </div>
-
-
-                                <div role="tabpanel" class="tab-pane" id="near">
-                                    <div class="pmb-block p-t-0">
-                                        <div ng-repeat="event in main.nearbyEvents">
-                                            <h3>{{event.Name}}</h3>
-                                            <h4>{{event.Organization}}</h4>
-                                            <p>{{event.Address}}</p>
-                                            <p>{{event.Description}}</p>
-
-                                            <hr />
-                                        </div>
-
-
-
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-
-
-
-
-
-                        </div>*@
 
                 </div>
             </div>
-
+        </div>
     </section>
 </section>
 

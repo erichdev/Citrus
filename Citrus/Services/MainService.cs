@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using Twilio;
 
 namespace Citrus.Services
@@ -114,21 +115,24 @@ namespace Citrus.Services
         }
 
 
-        public static RestResponse SendSimpleMessage()
+        public static RestResponse SendSimpleMessage(string name, string email)
         {
+
+            string MailGunKey = WebConfigurationManager.AppSettings["MailGunKey"];
+
             RestClient client = new RestClient();
             client.BaseUrl = new Uri("https://api.mailgun.net/v3");
             client.Authenticator =
                    new HttpBasicAuthenticator("api",
-                                              "key-0ef427ccc8ef1bcdfe54742e742df2b2");
+                                              MailGunKey);
             RestRequest request = new RestRequest();
             request.AddParameter("domain",
                                 "sandbox0ffd1e1851714d94b8b5f20390a50dd3.mailgun.org", ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
             request.AddParameter("from", "Mailgun Sandbox <postmaster@sandbox0ffd1e1851714d94b8b5f20390a50dd3.mailgun.org>");
-            request.AddParameter("to", "Erich <a.erich@gmail.com>");
-            request.AddParameter("subject", "Hello Erich");
-            request.AddParameter("text", "Congratulations Erich, you just sent an email with Mailgun!  You are truly awesome!  You can see a record of this email in your logs: https://mailgun.com/cp/log .  You can send up to 300 emails/day from this sandbox server.  Next, you should add your own domain so you can send 10,000 emails/month for free.");
+            request.AddParameter("to", email);
+            request.AddParameter("subject", "A volunteer opportunity for you");
+            request.AddParameter("text", "Hi " + name + ", there is a volunteering opportunity that you might be interested in! Log in to volunteerme.dev to find more information.");
             request.Method = Method.POST;
             return (RestResponse)client.Execute(request);
         }
