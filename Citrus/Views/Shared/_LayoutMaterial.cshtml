@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Material Admin</title>
+    <title>Volunteer Me</title>
 
     <!-- Vendor CSS -->
     <link href="/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
@@ -19,6 +19,8 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href="~/Content/custom.css" rel="stylesheet" />
+
+    @RenderSection("styles", required: false)
 
 
 </head>
@@ -47,6 +49,7 @@
     <!-- Javascript Libraries -->
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-route.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-0.14.3.js"></script>
 
     <script src="/vendors/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using Twilio;
 
 namespace Citrus.Services
 {
@@ -13,7 +14,7 @@ namespace Citrus.Services
     {
         public static Volunteer GetVolunteerById(int Id)
         {
-            Volunteer v = null;
+            Volunteer v = new Volunteer();
 
             DataProvider.ExecuteCmd(GetConnection, "dbo.Volunteer_SelectById"
                , inputParamMapper: delegate (SqlParameterCollection paramCollection)
@@ -23,6 +24,8 @@ namespace Citrus.Services
                , map: delegate (IDataReader reader, short set)
                {
                    int startingIndex = 0;
+
+               
 
                    v.Id = reader.GetSafeInt32(startingIndex++);
                    v.Name = reader.GetSafeString(startingIndex++);
